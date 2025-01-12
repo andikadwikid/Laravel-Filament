@@ -28,36 +28,46 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('department_id')
-                    ->relationship('department', 'name')
-                    ->options(Department::whereActive(true)->get()->pluck('name', 'id'))
-                    ->searchable()
-                    ->preload()
-                    ->editOptionForm(fn() => DepartmentResource::getFormFields())
-                    ->required(),
-                Forms\Components\Select::make('position_id')
-                    ->relationship('position', 'name')
-                    ->searchable()
-                    ->preload()
-                    ->createOptionForm(fn() => PositionResource::getFormFields())
-                    ->required(),
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->prefixIcon('heroicon-o-envelope')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\DatePicker::make('joined')
-                    ->prefixIcon('heroicon-o-calendar-days')
-                    ->native(false)
-                    ->default(now())
-                    ->required(),
-                Forms\Components\Select::make('status')
-                    ->enum(EmployeeStatus::class)
-                    ->options(EmployeeStatus::class)
-                    ->required(),
+                Forms\Components\Section::make('Employee')
+                    ->columns(2)
+                    ->schema([
+                        Forms\Components\TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->email()
+                            ->prefixIcon('heroicon-o-envelope')
+                            ->required()
+                            ->maxLength(255),
+
+                        Forms\Components\Group::make([
+                            Forms\Components\Select::make('department_id')
+                                ->relationship('department', 'name')
+                                ->options(Department::whereActive(true)->get()->pluck('name', 'id'))
+                                ->searchable()
+                                ->preload()
+                                ->editOptionForm(fn() => DepartmentResource::getFormFields())
+                                ->required(),
+                            Forms\Components\Select::make('position_id')
+                                ->relationship('position', 'name')
+                                ->searchable()
+                                ->preload()
+                                ->createOptionForm(fn() => PositionResource::getFormFields())
+                                ->required(),
+                            Forms\Components\Select::make('status')
+                                ->enum(EmployeeStatus::class)
+                                ->options(EmployeeStatus::class)
+                                ->required(),
+                        ])
+                            ->columns(3)->columnSpan(3),
+
+                        Forms\Components\DatePicker::make('joined')
+                            ->prefixIcon('heroicon-o-calendar-days')
+                            ->native(false)
+                            ->default(now())
+                            ->required(),
+                    ])
+
             ]);
     }
 
