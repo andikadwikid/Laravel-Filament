@@ -17,7 +17,12 @@ class SalaryResource extends Resource
 {
     protected static ?string $model = Salary::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Employee Management';
+    protected static ?int $navigationSort = 2;
+
+    protected static ?string $pluralLabel = 'Salary';
+
+    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
 
     public static function form(Form $form): Form
     {

@@ -15,6 +15,8 @@ php artisan filament:install --panels
 --generate dapat membuat kolom input secara otomatis menyesuaikan kolom yang di model
 --simple dapat membuat fungsi create dan update menggunakan Modal tanpa harus berpindah ke halaman lain
 
+php artisan make:filament-page Statistic
+
 php artisan make:filament-resource Department --generate
 or
 php artisan make:filament-resource Department --generate --simple

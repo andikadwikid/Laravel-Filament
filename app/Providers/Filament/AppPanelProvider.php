@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Statistic;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -31,11 +32,17 @@ class AppPanelProvider extends PanelProvider
                 'primary' => Color::Blue,
                 'gray' => Color::Zinc,
             ])
+            ->navigationGroups([
+                'Employee Management',
+                'Resources',
+            ])
             ->darkMode(true, true)
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                Pages\Dashboard::class,
+                // Pages\Dashboard::class,
+                // App\Filament\Pages\Statistic::class
+                Statistic::class
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
