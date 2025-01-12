@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\EmployeeStatus;
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Employee;
@@ -25,9 +26,15 @@ class EmployeeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('department_id')
                     ->relationship('department', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->editOptionForm(fn() => DepartmentResource::getFormFields())
                     ->required(),
                 Forms\Components\Select::make('position_id')
                     ->relationship('position', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->createOptionForm(fn() => PositionResource::getFormFields())
                     ->required(),
                 Forms\Components\TextInput::make('name')
                     ->required()
@@ -42,9 +49,10 @@ class EmployeeResource extends Resource
                     ->native(false)
                     ->default(now())
                     ->required(),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Select::make('status')
+                    ->enum(EmployeeStatus::class)
+                    ->options(EmployeeStatus::class)
+                    ->required(),
             ]);
     }
 

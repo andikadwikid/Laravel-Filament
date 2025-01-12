@@ -22,13 +22,18 @@ class DepartmentResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Textarea::make('description')
-                    ->columnSpanFull(),
-            ]);
+            ->schema(self::getFormFields());
+    }
+
+    public static function getFormFields(): array
+    {
+        return [
+            Forms\Components\TextInput::make('name')
+                ->required()
+                ->maxLength(255),
+            Forms\Components\Textarea::make('description')
+                ->columnSpanFull(),
+        ];
     }
 
     public static function table(Table $table): Table
