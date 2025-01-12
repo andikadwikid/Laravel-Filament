@@ -60,7 +60,12 @@ class DepartmentResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('active')
+                    ->toggle()
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('active', true)),
+                Tables\Filters\Filter::make('inactive')
+                    ->toggle()
+                    ->modifyQueryUsing(fn(Builder $query) => $query->where('active', false)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
