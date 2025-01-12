@@ -33,6 +33,7 @@ class DepartmentResource extends Resource
                 ->maxLength(255),
             Forms\Components\Textarea::make('description')
                 ->columnSpanFull(),
+            Forms\Components\Toggle::make('active')
         ];
     }
 
@@ -42,6 +43,11 @@ class DepartmentResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\ToggleColumn::make('active'),
+                // Tables\Columns\TextColumn::make('active')
+                //     ->formatStateUsing(fn($state) => $state ? 'Active' : 'Inactive')
+                //     ->badge()
+                //     ->color(fn($state) => $state ? 'success' : 'danger'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

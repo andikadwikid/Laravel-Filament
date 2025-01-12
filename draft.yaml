@@ -2,6 +2,7 @@ models:
   Department:
     name: string
     description: text nullable
+    active: boolean default true
     relationships:
       hasMany: Employee
 

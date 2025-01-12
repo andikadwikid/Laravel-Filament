@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\EmployeeStatus;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Department;
@@ -23,12 +24,12 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'department_id' => Department::factory(),
-            'position_id' => Position::factory(),
+            'department_id' => rand(1, Department::count()),
+            'position_id' => rand(1, Position::count()),
             'name' => $this->faker->name(),
             'email' => $this->faker->safeEmail(),
             'joined' => $this->faker->date(),
-            'status' => $this->faker->word(),
+            'status' => collect(EmployeeStatus::cases())->random(),
         ];
     }
 }

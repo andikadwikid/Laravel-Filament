@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Enums\EmployeeStatus;
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
+use App\Models\Department;
 use App\Models\Employee;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -26,6 +27,7 @@ class EmployeeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('department_id')
                     ->relationship('department', 'name')
+                    ->options(Department::whereActive(true)->get()->pluck('name', 'id'))
                     ->searchable()
                     ->preload()
                     ->editOptionForm(fn() => DepartmentResource::getFormFields())
