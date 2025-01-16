@@ -91,8 +91,13 @@ class EmployeeResource extends Resource
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                // Tables\Columns\SelectColumn::make('status')
+                //     ->options(EmployeeStatus::class),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
+                    ->badge()
+                    ->icon(fn($state) => $state->getIcon())
+                    // ->iconPosition('after')
+                    ->color(fn($state) => $state->getColor()),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

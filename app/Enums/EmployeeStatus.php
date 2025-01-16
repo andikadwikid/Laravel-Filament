@@ -13,10 +13,23 @@ enum EmployeeStatus: string implements HasLabel
     public function getLabel(): ?string
     {
         return str(str($this->value)->replace('_', ' '))->title();
-        // return match ($this) {
-        //     self::ACTIVE => 'Active',
-        //     self::INACTIVE => 'Inactive',
-        //     self::ON_LEAVE => 'On Leave',
-        // };
+    }
+
+    public function getColor(): string
+    {
+        return match ($this) {
+            self::ACTIVE => 'success',
+            self::INACTIVE => 'danger',
+            self::ON_LEAVE => 'warning',
+        };
+    }
+
+    public function getIcon(): string
+    {
+        return match ($this) {
+            self::ACTIVE => 'heroicon-m-check-circle',
+            self::INACTIVE => 'heroicon-m-exclamation-circle',
+            self::ON_LEAVE => 'heroicon-m-minus-circle',
+        };
     }
 }
